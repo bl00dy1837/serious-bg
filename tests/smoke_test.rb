@@ -65,6 +65,9 @@ class SmokeTest < Test::Unit::TestCase
     end
     hydra.run
     requests.each do |req|
+      if !req.response.success?
+        puts "failed header: #{req.response.headers} body: #{req.response.body} code: #{req.response.code} retun messeage #{req.response.return_message}"
+      end
       assert req.response.success?, "Audio file was not available: '#{req.url}'"
     end
     WebMock.disable_net_connect!
